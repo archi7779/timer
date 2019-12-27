@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.sass"],"names":[],"mappings":"AACA,gBACE,mBAAoB,CAAG,WAEvB,uBAAwB,CAAG,WAE3B,8BAAgC","file":"main.b6cfd739.chunk.css","sourcesContent":["@import \"../../node_modules/normalize.css\";\n.countDonwInput {\n  width: 20%!important; }\n.timeInput {\n  display: block!important; }\n.errorTest {\n  background-color: red !important; }\n"]}
