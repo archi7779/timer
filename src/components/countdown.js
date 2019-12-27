@@ -1,6 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
-import { Button, Input } from 'antd';
+import { Button, Input, Progress } from 'antd';
 import MIDISounds from 'midi-sounds-react';
 
 export default class CountDown extends React.Component {
@@ -14,6 +13,7 @@ export default class CountDown extends React.Component {
       inputSec: undefined,
       time: undefined,
       error: false,
+      percent: 0,
       // реакт выдает ошибку, управляемые\не управляемые компоненты. как обойти если мне на ипнутах хочется плейсхолдер иметь.
     };
   }
@@ -28,71 +28,59 @@ export default class CountDown extends React.Component {
     });
   };
 
+  callback = () => {
+    this.countDown = setInterval(() => {
+      if (this.state.time === 0) {
+        clearInterval(this.countDown);
+        // ++sound
+        this.midiSounds.playChordNow(3, [60], 2.5);
+      }
+      this.setState({
+        time: this.state.time - 100,
+        timer: new Date(this.state.time - 10800000),
+      });
+    }, 100);
+  };
+
   handleStart = () => {
-    const {inputMin, inputSec, time} = this.state;
+    const { inputMin, inputSec } = this.state;
+    // как сделать так, чтобы эта конструкция(выше) работа и при вложенности, а то не работает
     if (inputMin > 720) {
       this.setState({ error: true });
       alert('max time is 720 min');
       return;
     }
-
+    if (inputMin === undefined && inputSec === undefined) {
+      this.setState({ error: true });
+      alert('set time up!');
+      return;
+    }
     if (inputSec === undefined && inputMin !== undefined) {
       this.setState(
         {
           time: inputMin * 60000,
+          percent: inputMin * 60000,
           error: false,
         },
-        () => {
-          this.countDown = setInterval(() => {
-            if (time === 0) {
-              clearInterval(this.countDown);
-              // ++sound
-              this.midiSounds.playChordNow(3, [60], 2.5);
-            }
-            this.setState({
-              time: time - 100,
-              timer: new Date(time - 10800000),
-            });
-          }, 100);
-        }
+        this.callback
       );
-    } else if (inputSec !== undefined && inputMin === undefined) {
+    } else if (this.state.inputSec !== undefined && this.state.inputMin === undefined) {
       this.setState(
         {
-          time: inputSec * 1000,
+          time: this.state.inputSec * 1000,
+          percent: this.state.inputSec * 1000,
+          error: false,
         },
-        () => {
-          this.countDown = setInterval(() => {
-            if (time === 0) {
-              clearInterval(this.countDown);
-              // ++sound
-              this.midiSounds.playChordNow(3, [60], 2.5);
-            }
-            this.setState({
-              time: time - 100,
-              timer: new Date(time - 10800000),
-            });
-          }, 100);
-        }
+        this.callback
       );
     } else {
       this.setState(
         {
-          time: inputMin * 60000 + inputSec * 1000,
+          time: this.state.inputMin * 60000 + this.state.inputSec * 1000,
+          percent: this.state.inputMin * 60000 + this.state.inputSec * 1000,
+          error: false,
         },
-        () => {
-          this.countDown = setInterval(() => {
-            if (time === 0) {
-              clearInterval(this.countDown);
-              // ++sound
-              this.midiSounds.playChordNow(3, [60], 2.5);
-            }
-            this.setState({
-              time: time - 100,
-              timer: new Date(time - 10800000),
-            });
-          }, 100);
-        }
+        this.callback
       );
     }
   };
@@ -104,6 +92,7 @@ export default class CountDown extends React.Component {
       inputMin: 0,
       inputSec: 0,
       timer: new Date(-10800000),
+      mode: 'pause',
     });
   };
 
@@ -111,6 +100,12 @@ export default class CountDown extends React.Component {
     this.setState({
       [target.dataset.time]: target.value,
     });
+  };
+
+  progressBar = () => {
+    return this.state.time
+      ? Math.round((100 * (this.state.percent - this.state.time)) / this.state.percent)
+      : 0;
   };
 
   render() {
@@ -121,22 +116,8 @@ export default class CountDown extends React.Component {
       zIndex: -1000,
     };
     return (
-      <div className="">
-        <div>
-          <Input
-            className="countDonwInput"
-            type="range"
-            name="test"
-            min="0"
-            max="60"
-            step="0.25"
-            value={rangeInputValue}
-            onChange={this.RangehandleChange}
-          />
-          <output htmlFor="test" name="level">
-            {rangeInputValue}min
-          </output>
-        </div>
+      <div className="countDown">
+        <h1>CountDown</h1>
         <div>
           <Input
             className={`countDonwInput + timeInput + ${inputEror}`}
@@ -155,7 +136,21 @@ export default class CountDown extends React.Component {
             value={inputSec}
           />
         </div>
-
+        <div className="rangeInputWrapper">
+          <Input
+            className=""
+            type="range"
+            name="test"
+            min="0"
+            max="60"
+            step="0.25"
+            value={rangeInputValue}
+            onChange={this.RangehandleChange}
+          />
+          <output htmlFor="test" name="level">
+            {rangeInputValue}
+          </output>
+        </div>
         <div>
           {timer.getHours()}:{timer.getMinutes()}:{timer.getSeconds()}:
           {parseInt(timer.getMilliseconds() / 100)}
@@ -167,6 +162,7 @@ export default class CountDown extends React.Component {
         <Button type="primary" onClick={this.handleReset}>
           Reset
         </Button>
+        <Progress percent={this.progressBar()} />
         <MIDISounds
           style={soundStyles}
           ref={ref => (this.midiSounds = ref)}

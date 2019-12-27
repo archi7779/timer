@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 
-const vDom = (<><Timer /> <hr /> <CountDown /> </>);
+const vDom = (<div className='wrapper'><Timer /> <CountDown /> </ div>);
 
 
 ReactDOM.render(vDom, document.getElementById('root'));

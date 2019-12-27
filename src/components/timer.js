@@ -23,7 +23,7 @@ export default class Timer extends React.Component {
   };
 
   handleStart = () => {
-    const { timer, mode, startTime } = this.state;
+    const { timer, mode } = this.state;
     if (mode === 'pause') {
       this.setState(
         {
@@ -32,7 +32,7 @@ export default class Timer extends React.Component {
         () => {
           this.timerId = setInterval(() => {
             this.setState({
-              timer: new Date(Date.now() - startTime),
+              timer: new Date(Date.now() - this.state.startTime),
               mode: 'play',
             });
           }, 100);
@@ -52,18 +52,24 @@ export default class Timer extends React.Component {
     const { timer, mode } = this.state;
     return (
       // например тут нажатие на кноку можно было бы через этот объект реализовать, например.
-      <div>
-        {timer.getMinutes()}:{timer.getSeconds()}:{parseInt(timer.getMilliseconds() / 100)}
+
+      <div className="timer">
+        <div className="timer_outPutPart">
+          <h1>Timer</h1>
+          <div className="timer_numbers">
+            {timer.getMinutes()}:{timer.getSeconds()}:{parseInt(timer.getMilliseconds() / 100)}
+          </div>
+        </div>
         {mode === 'play' ? (
-          <Button type="primary" onClick={this.handleStart}>
+          <Button className="playPause" type="primary" onClick={this.handleStart}>
             Pause
           </Button>
         ) : (
-          <Button type="primary" onClick={this.handleStart}>
+          <Button className="playPause" type="primary" onClick={this.handleStart}>
             Start
           </Button>
         )}
-        <Button type="primary" onClick={this.handleReset}>
+        <Button className="playPause" type="primary" onClick={this.handleReset}>
           Reset
         </Button>
       </div>
