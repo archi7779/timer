@@ -4,11 +4,7 @@
     <list default="true" id="f3252fc3-dace-4d49-a1b2-e7f937cdcb15" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/countdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/countdown.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/timer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/timer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/index.sass" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.sass" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +75,9 @@
       <updated>1577164502895</updated>
       <workItem from="1577164505547" duration="24832000" />
       <workItem from="1577414014725" duration="24000" />
-      <workItem from="1577414061542" duration="3025000" />
+      <workItem from="1577414061542" duration="3916000" />
+      <workItem from="1577439609140" duration="1357000" />
+      <workItem from="1577440988348" duration="108000" />
     </task>
     <servers />
   </component>

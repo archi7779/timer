@@ -20,17 +20,19 @@ export default class CountDown extends React.Component {
 
   RangehandleChange = ({ target }) => {
     const milisecs = target.value * 6000;
-    const test = (milisecs % 6000) / 60;
+    const secsToMsecs = (milisecs % 6000) / 60;
     this.setState({
       rangeInputValue: target.value,
-      inputMin: parseInt(milisecs / 6000),
-      inputSec: test,
+      inputMin: parseInt(milisecs / 6000 , 10),
+      inputSec: secsToMsecs,
     });
   };
 
   callback = () => {
+    //вот тут не работает {time}
+    const { time } = this.state
     this.countDown = setInterval(() => {
-      if (this.state.time === 0) {
+      if (time === 0) {
         clearInterval(this.countDown);
         // ++sound
         this.midiSounds.playChordNow(3, [60], 2.5);
@@ -64,11 +66,11 @@ export default class CountDown extends React.Component {
         },
         this.callback
       );
-    } else if (this.state.inputSec !== undefined && this.state.inputMin === undefined) {
+    } else if (inputSec !== undefined && inputMin === undefined) {
       this.setState(
         {
-          time: this.state.inputSec * 1000,
-          percent: this.state.inputSec * 1000,
+          time: inputSec * 1000,
+          percent: inputSec * 1000,
           error: false,
         },
         this.callback
@@ -76,8 +78,8 @@ export default class CountDown extends React.Component {
     } else {
       this.setState(
         {
-          time: this.state.inputMin * 60000 + this.state.inputSec * 1000,
-          percent: this.state.inputMin * 60000 + this.state.inputSec * 1000,
+          time: inputMin * 60000 + inputSec * 1000,
+          percent: inputMin * 60000 + inputSec * 1000,
           error: false,
         },
         this.callback
@@ -92,7 +94,6 @@ export default class CountDown extends React.Component {
       inputMin: 0,
       inputSec: 0,
       timer: new Date(-10800000),
-      mode: 'pause',
     });
   };
 
@@ -103,8 +104,9 @@ export default class CountDown extends React.Component {
   };
 
   progressBar = () => {
-    return this.state.time
-      ? Math.round((100 * (this.state.percent - this.state.time)) / this.state.percent)
+    const { percent, time } = this.state;
+    return time
+      ? Math.round((100 * (percent - time)) / percent)
       : 0;
   };
 
@@ -153,7 +155,7 @@ export default class CountDown extends React.Component {
         </div>
         <div>
           {timer.getHours()}:{timer.getMinutes()}:{timer.getSeconds()}:
-          {parseInt(timer.getMilliseconds() / 100)}
+          {parseInt(timer.getMilliseconds() / 100, 10)}
         </div>
 
         <Button type="primary" onClick={this.handleStart}>
