@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.sass'
-import 'antd/dist/antd.css'
+import './styles/index.sass';
+import 'antd/dist/antd.css';
 import Timer from './components/timer';
-import CountDown from  './components/countdown'
+import Countdown from './components/countdown'
 
 import * as serviceWorker from './serviceWorker';
 
-
-
-const vDom = (<div className='wrapper'><Timer /> <CountDown /> </ div>);
+const vDom = (<div className='wrapper'><Timer /> <Countdown /> </ div>);
 
 
 ReactDOM.render(vDom, document.getElementById('root'));

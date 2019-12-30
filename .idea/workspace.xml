@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f3252fc3-dace-4d49-a1b2-e7f937cdcb15" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/countdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/countdown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/countdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/countdown.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/timer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/timer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/serviceWorker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/serviceWorker.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +81,8 @@
       <workItem from="1577414061542" duration="3916000" />
       <workItem from="1577439609140" duration="1357000" />
       <workItem from="1577440988348" duration="108000" />
+      <workItem from="1577444939180" duration="670000" />
+      <workItem from="1577512023981" duration="8248000" />
     </task>
     <servers />
   </component>
@@ -101,5 +106,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="827" y="304" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1577214012507" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/countdown.jsx</url>
+          <line>63</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
