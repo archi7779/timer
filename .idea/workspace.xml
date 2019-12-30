@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3252fc3-dace-4d49-a1b2-e7f937cdcb15" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/countdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/countdown.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/timer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/timer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serviceWorker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/serviceWorker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/countdown.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/countdown.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/timer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/timer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +33,11 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\Artur\Desktop\Портфолио\block-18\final\node_modules\prettier" />
@@ -83,6 +87,7 @@
       <workItem from="1577440988348" duration="108000" />
       <workItem from="1577444939180" duration="670000" />
       <workItem from="1577512023981" duration="8248000" />
+      <workItem from="1577686723564" duration="2118000" />
     </task>
     <servers />
   </component>
@@ -90,10 +95,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="179" key="#ESLint" timestamp="1577687580743">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#ESLint/0.0.1920.1040@0.0.1920.1040" timestamp="1577687580743" />
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1577165862509">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1577165862509" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1577688562533">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1577688562533" />
     <state x="739" y="146" key="RollbackChangesDialog" timestamp="1577167987593">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -112,8 +125,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/countdown.jsx</url>
-          <line>63</line>
-          <properties lambdaOrdinal="-1" />
+          <line>62</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

@@ -32,6 +32,7 @@ export default class Timer extends React.Component {
         () => {
           this.timerId = setInterval(() => {
             this.setState({
+              // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
               timer: new Date(Date.now() - this.state.startTime),
               mode: 'play',
             });
@@ -57,7 +58,7 @@ export default class Timer extends React.Component {
         <div className="timer_outPutPart">
           <h1>Timer</h1>
           <div className="timer_numbers">
-            {timer.getMinutes()}:{timer.getSeconds()}:{parseInt(timer.getMilliseconds() / 100)}
+            {timer.getMinutes()}:{timer.getSeconds()}:{parseInt(timer.getMilliseconds() / 100, 10)}
           </div>
         </div>
         {mode === 'play' ? (

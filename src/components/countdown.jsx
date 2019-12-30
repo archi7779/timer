@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Input, Progress } from 'antd';
-import MIDISounds from 'midi-sounds-react';
 
 export default class Countdown extends React.Component {
   constructor(props) {
@@ -32,8 +31,8 @@ export default class Countdown extends React.Component {
 
   callback = () => {
     // вот тут не работает {time} = state
-    const { time } = this.state;
     this.countDown = setInterval(() => {
+      // eslint-disable-next-line react/destructuring-assignment
       if (this.state.time === 0) {
         clearInterval(this.countDown);
         const audio = new Audio(
@@ -52,12 +51,12 @@ export default class Countdown extends React.Component {
         });
         return;
       }
-      this.setState({
-        time: this.state.time - 100,
-        timer: new Date(this.state.time - 10800000),
+      this.setState(prevState => ({
+        time: prevState.time - 100,
+        timer: new Date(prevState.time - 10800000),
         mode: 'play',
         disabled: true,
-      });
+      }));
     }, 100);
   };
 
@@ -70,11 +69,13 @@ export default class Countdown extends React.Component {
     // как сделать так, чтобы эта конструкция(выше) работа и при вложенности, а то не работает
     if (inputMin > 720) {
       this.setState({ error: true });
+      // eslint-disable-next-line no-alert
       alert('max time is 720 min');
       return;
     }
     if (inputMin === undefined && inputSec === undefined) {
       this.setState({ error: true });
+      // eslint-disable-next-line no-alert
       alert('set time up!');
       return;
     }
@@ -144,12 +145,8 @@ export default class Countdown extends React.Component {
   };
 
   render() {
-    const { timer, inputMin, inputSec, rangeInputValue, error } = this.state;
+    const { timer, inputMin, inputSec, rangeInputValue, error, disabled } = this.state;
     const inputEror = error ? 'errorTest' : 'ok';
-    const soundStyles = {
-      display: 'none',
-      zIndex: -1000,
-    };
     return (
       <div className="countDown">
         <h1>CountDown</h1>
@@ -161,7 +158,7 @@ export default class Countdown extends React.Component {
             data-time="inputMin"
             onChange={this.handleInputChange}
             value={inputMin}
-            disabled={this.state.disabled}
+            disabled={disabled}
           />
           <Input
             className="countDonwInput timeInput"
@@ -170,7 +167,7 @@ export default class Countdown extends React.Component {
             data-time="inputSec"
             onChange={this.handleInputChange}
             value={inputSec}
-            disabled={this.state.disabled}
+            disabled={disabled}
           />
         </div>
         <div className="rangeInputWrapper">
@@ -183,7 +180,7 @@ export default class Countdown extends React.Component {
             step="0.25"
             value={rangeInputValue}
             onChange={this.RangehandleChange}
-            disabled={this.state.disabled}
+            disabled={disabled}
           />
           <output htmlFor="test" name="level">
             {rangeInputValue}
@@ -193,7 +190,7 @@ export default class Countdown extends React.Component {
           {timer.getHours()}:{timer.getMinutes()}:{timer.getSeconds()}:
           {parseInt(timer.getMilliseconds() / 100, 10)}
         </div>
-
+        {/* eslint-disable-next-line react/destructuring-assignment */}
         {this.state.mode === 'pause' ? (
           <Button type="primary" onClick={this.handleStart}>
             Start
