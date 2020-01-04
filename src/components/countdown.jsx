@@ -6,17 +6,18 @@ export default class Countdown extends React.Component {
     super(props);
     this.state = {
       rangeInputValue: undefined,
-      // не знал как еще избавиться от 3 часов разницы из-за часовых поясов
-      timer: new Date(-10800000),
+      timer: new Date(0),
       inputMin: undefined,
       inputSec: undefined,
       time: undefined,
       error: false,
       percent: 0,
       mode: 'pause',
-      disabled: false,
-      // реакт выдает ошибку, управляемые\не управляемые компоненты. как обойти если мне на ипнутах хочется плейсхолдер иметь.
     };
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.countDown);
   }
 
   RangehandleChange = ({ target }) => {
@@ -29,8 +30,7 @@ export default class Countdown extends React.Component {
     });
   };
 
-  callback = () => {
-    // вот тут не работает {time} = state
+  startTimer = () => {
     this.countDown = setInterval(() => {
       // eslint-disable-next-line react/destructuring-assignment
       if (this.state.time === 0) {
@@ -40,33 +40,29 @@ export default class Countdown extends React.Component {
         );
         audio.play();
         this.setState({
-          // почему-то не получается дать им undefined чтобы инпуты показали плейсхолдеры
           inputMin: undefined,
           inputSec: undefined,
-          timer: new Date(-10800000),
+          timer: new Date(0),
           mode: 'pause',
           time: undefined,
           rangeInputValue: undefined,
-          disabled: false,
         });
         return;
       }
       this.setState(prevState => ({
-        time: prevState.time - 100,
-        timer: new Date(prevState.time - 10800000),
+        time: prevState.time - 10,
+        timer: new Date(prevState.time),
         mode: 'play',
-        disabled: true,
       }));
-    }, 100);
+    }, 10);
   };
 
   handleStart = () => {
     const { inputMin, inputSec, time } = this.state;
     if (time) {
-      this.callback();
+      this.startTimer();
       return;
     }
-    // как сделать так, чтобы эта конструкция(выше) работа и при вложенности, а то не работает
     if (inputMin > 720) {
       this.setState({ error: true });
       // eslint-disable-next-line no-alert
@@ -87,7 +83,7 @@ export default class Countdown extends React.Component {
           error: false,
           mode: 'play',
         },
-        this.callback
+        this.startTimer
       );
     } else if (inputSec !== undefined && inputMin === undefined) {
       this.setState(
@@ -97,7 +93,7 @@ export default class Countdown extends React.Component {
           error: false,
           mode: 'play',
         },
-        this.callback
+        this.startTimer
       );
     } else {
       this.setState(
@@ -107,7 +103,7 @@ export default class Countdown extends React.Component {
           error: false,
           mode: 'play',
         },
-        this.callback
+        this.startTimer
       );
     }
   };
@@ -122,14 +118,12 @@ export default class Countdown extends React.Component {
   handleReset = () => {
     clearInterval(this.countDown);
     this.setState({
-      // почему-то не получается дать им undefined чтобы инпуты показали плейсхолдеры
       inputMin: undefined,
       inputSec: undefined,
-      timer: new Date(-10800000),
+      timer: new Date(0),
       mode: 'pause',
       time: undefined,
       rangeInputValue: undefined,
-      disabled: false,
     });
   };
 
@@ -145,7 +139,7 @@ export default class Countdown extends React.Component {
   };
 
   render() {
-    const { timer, inputMin, inputSec, rangeInputValue, error, disabled } = this.state;
+    const { timer, inputMin, inputSec, rangeInputValue, error, time } = this.state;
     const inputEror = error ? 'errorTest' : 'ok';
     return (
       <div className="countDown">
@@ -158,7 +152,7 @@ export default class Countdown extends React.Component {
             data-time="inputMin"
             onChange={this.handleInputChange}
             value={inputMin}
-            disabled={disabled}
+            disabled={!!time}
           />
           <Input
             className="countDonwInput timeInput"
@@ -167,7 +161,7 @@ export default class Countdown extends React.Component {
             data-time="inputSec"
             onChange={this.handleInputChange}
             value={inputSec}
-            disabled={disabled}
+            disabled={!!time}
           />
         </div>
         <div className="rangeInputWrapper">
@@ -180,28 +174,33 @@ export default class Countdown extends React.Component {
             step="0.25"
             value={rangeInputValue}
             onChange={this.RangehandleChange}
-            disabled={disabled}
+            disabled={!!time}
           />
           <output htmlFor="test" name="level">
             {rangeInputValue}
           </output>
         </div>
-        <div>
-          {timer.getHours()}:{timer.getMinutes()}:{timer.getSeconds()}:
-          {parseInt(timer.getMilliseconds() / 100, 10)}
+        <div className="countDownOutPut">
+          {timer.getUTCHours() < 10 ? `0${timer.getUTCHours()}` : timer.getUTCHours()}ч:
+          {timer.getUTCMinutes() < 10 ? `0${timer.getUTCMinutes()}` : timer.getUTCMinutes()}м:
+          {timer.getUTCSeconds() < 10 ? `0${timer.getUTCSeconds()}` : timer.getUTCSeconds()}с.
+          {parseInt(timer.getMilliseconds() / 10, 10) < 10
+            ? `0${parseInt(timer.getMilliseconds() / 10, 10)}`
+            : parseInt(timer.getMilliseconds() / 10, 10)}
+          мс
         </div>
         {/* eslint-disable-next-line react/destructuring-assignment */}
         {this.state.mode === 'pause' ? (
-          <Button type="primary" onClick={this.handleStart}>
+          <Button type="primary" onClick={this.handleStart} className="playPause">
             Start
           </Button>
         ) : (
-          <Button type="primary" onClick={this.handlePause}>
+          <Button type="primary" onClick={this.handlePause} className="playPause">
             Pause
           </Button>
         )}
 
-        <Button type="primary" onClick={this.handleReset}>
+        <Button type="primary" onClick={this.handleReset} className="playPause">
           Reset
         </Button>
         <Progress percent={this.progressBar()} />

@@ -11,8 +11,6 @@ export default class Timer extends React.Component {
     };
   }
 
-  componentDidMount() {}
-
   handleReset = () => {
     clearInterval(this.timerId);
     this.setState({
@@ -36,7 +34,7 @@ export default class Timer extends React.Component {
               timer: new Date(Date.now() - this.state.startTime),
               mode: 'play',
             });
-          }, 100);
+          }, 10);
         }
       );
     } else {
@@ -58,7 +56,12 @@ export default class Timer extends React.Component {
         <div className="timer_outPutPart">
           <h1>Timer</h1>
           <div className="timer_numbers">
-            {timer.getMinutes()}:{timer.getSeconds()}:{parseInt(timer.getMilliseconds() / 100, 10)}
+            {timer.getUTCMinutes() < 10 ? `0${timer.getUTCMinutes()}` : timer.getUTCMinutes()}м:
+            {timer.getUTCSeconds() < 10 ? `0${timer.getUTCSeconds()}` : timer.getUTCSeconds()}с.
+            {parseInt(timer.getMilliseconds() / 10, 10) < 10
+              ? `0${parseInt(timer.getMilliseconds() / 10, 10)}`
+              : parseInt(timer.getMilliseconds() / 10, 10)}
+            мс
           </div>
         </div>
         {mode === 'play' ? (
