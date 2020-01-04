@@ -15,7 +15,7 @@ const vDom = (
     <TabPane tab="Timer" key="1">
       <Timer />
     </TabPane>
-    <TabPane tab="CountDown"  key="2">
+    <TabPane tab="CountDown" key="2">
       <Countdown />
     </TabPane>
   </Tabs>
