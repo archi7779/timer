@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3252fc3-dace-4d49-a1b2-e7f937cdcb15" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/countdown.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/countdown.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/timer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/timer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/index.sass" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.sass" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +89,9 @@
       <workItem from="1577686723564" duration="2118000" />
       <workItem from="1577720280707" duration="1865000" />
       <workItem from="1577901425377" duration="12607000" />
-      <workItem from="1578155430065" duration="1599000" />
+      <workItem from="1578155430065" duration="3212000" />
+      <workItem from="1578164238450" duration="51000" />
+      <workItem from="1578395356859" duration="6148000" />
     </task>
     <servers />
   </component>

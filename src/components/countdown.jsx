@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Input, Progress } from 'antd';
+import { Button, Progress } from 'antd';
+import InputComponent from './inputComponent';
 
 export default class Countdown extends React.Component {
   constructor(props) {
@@ -19,16 +20,6 @@ export default class Countdown extends React.Component {
   componentWillUnmount() {
     clearInterval(this.countDown);
   }
-
-  RangehandleChange = ({ target }) => {
-    const milisecs = target.value * 6000;
-    const secsToMsecs = (milisecs % 6000) / 60;
-    this.setState({
-      rangeInputValue: target.value,
-      inputMin: parseInt(milisecs / 6000, 10),
-      inputSec: secsToMsecs,
-    });
-  };
 
   startTimer = () => {
     this.countDown = setInterval(() => {
@@ -133,6 +124,32 @@ export default class Countdown extends React.Component {
     });
   };
 
+  handleMinInputChange = ({ target }) => {
+    const { inputSec } = this.state;
+    this.setState({
+      inputMin: target.value,
+      rangeInputValue: inputSec ? +target.value + +inputSec / 60 : +target.value,
+    });
+  };
+
+  handleSecInputChange = ({ target }) => {
+    const { inputMin } = this.state;
+    this.setState({
+      inputSec: target.value,
+      rangeInputValue: inputMin ? +inputMin + +target.value / 60 : +target.value / 60,
+    });
+  };
+
+  RangehandleChange = ({ target }) => {
+    const milisecs = target.value * 6000;
+    const secsToMsecs = (milisecs % 6000) / 100;
+    this.setState({
+      rangeInputValue: target.value,
+      inputMin: parseInt(milisecs / 6000, 10),
+      inputSec: secsToMsecs,
+    });
+  };
+
   progressBar = () => {
     const { percent, time } = this.state;
     return time ? Math.round((100 * (percent - time)) / percent) : 0;
@@ -140,46 +157,20 @@ export default class Countdown extends React.Component {
 
   render() {
     const { timer, inputMin, inputSec, rangeInputValue, error, time } = this.state;
-    const inputEror = error ? 'errorTest' : 'ok';
+    const inputError = error ? 'error' : 'ok';
     return (
       <div className="countDown">
         <h1>CountDown</h1>
-        <div>
-          <Input
-            className={`countDonwInput + timeInput + ${inputEror}`}
-            type="text"
-            placeholder="enter minutes"
-            data-time="inputMin"
-            onChange={this.handleInputChange}
-            value={inputMin}
-            disabled={!!time}
-          />
-          <Input
-            className="countDonwInput timeInput"
-            type="text"
-            placeholder="enter seconds"
-            data-time="inputSec"
-            onChange={this.handleInputChange}
-            value={inputSec}
-            disabled={!!time}
-          />
-        </div>
-        <div className="rangeInputWrapper">
-          <Input
-            className=""
-            type="range"
-            name="test"
-            min="0"
-            max="60"
-            step="0.25"
-            value={rangeInputValue}
-            onChange={this.RangehandleChange}
-            disabled={!!time}
-          />
-          <output htmlFor="test" name="level">
-            {rangeInputValue}
-          </output>
-        </div>
+        <InputComponent
+          inputError={inputError}
+          handleMinInputChange={this.handleMinInputChange}
+          handleSecInputChange={this.handleSecInputChange}
+          inputMin={inputMin}
+          inputSec={inputSec}
+          time={time}
+          RangehandleChange={this.RangehandleChange}
+          rangeInputValue={rangeInputValue}
+        />
         <div className="countDownOutPut">
           {timer.getUTCHours() < 10 ? `0${timer.getUTCHours()}` : timer.getUTCHours()}ч:
           {timer.getUTCMinutes() < 10 ? `0${timer.getUTCMinutes()}` : timer.getUTCMinutes()}м:
@@ -199,7 +190,6 @@ export default class Countdown extends React.Component {
             Pause
           </Button>
         )}
-
         <Button type="primary" onClick={this.handleReset} className="playPause">
           Reset
         </Button>
