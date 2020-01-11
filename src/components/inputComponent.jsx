@@ -9,7 +9,7 @@ function InputComponents({
   inputMin,
   inputSec,
   time,
-  RangehandleChange,
+  handleRangeInputChange,
   rangeInputValue,
 }) {
   return (
@@ -42,7 +42,7 @@ function InputComponents({
           max="60"
           step="0.25"
           value={rangeInputValue}
-          onChange={RangehandleChange}
+          onChange={handleRangeInputChange}
           disabled={!!time}
         />
         <output htmlFor="test" name="level">
@@ -52,25 +52,15 @@ function InputComponents({
     </>
   );
 }
-InputComponents.defaultProps = {
-  inputError: 'ok',
-  handleMinInputChange: undefined,
-  handleSecInputChange: undefined,
-  inputMin: undefined,
-  inputSec: undefined,
-  time: undefined,
-  RangehandleChange: undefined,
-  rangeInputValue: undefined,
-};
-// без деф.Пропс - ошибка. и хз почему у меня инпуты = строки
+
 InputComponents.propTypes = {
-  inputError: PropTypes.string,
-  handleMinInputChange: PropTypes.func,
-  handleSecInputChange: PropTypes.func,
-  inputMin: PropTypes.string,
-  inputSec: PropTypes.string,
-  time: PropTypes.number,
-  RangehandleChange: PropTypes.func,
-  rangeInputValue: PropTypes.number,
+  inputError: PropTypes.string.isRequired,
+  handleMinInputChange: PropTypes.func.isRequired,
+  handleSecInputChange: PropTypes.func.isRequired,
+  inputMin: PropTypes.string.isRequired,
+  inputSec: PropTypes.string.isRequired,
+  time: PropTypes.number.isRequired,
+  handleRangeInputChange: PropTypes.func.isRequired,
+  rangeInputValue: PropTypes.number.isRequired,
 };
 export default InputComponents;

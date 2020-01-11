@@ -14,6 +14,7 @@ export default class Countdown extends React.Component {
       error: false,
       percent: 0,
       mode: 'pause',
+      endPoint: undefined,
     };
   }
 
@@ -23,8 +24,8 @@ export default class Countdown extends React.Component {
 
   startTimer = () => {
     this.countDown = setInterval(() => {
-      // eslint-disable-next-line react/destructuring-assignment
-      if (this.state.time === 0) {
+      const { time } = this.state;
+      if (time <= 0) {
         clearInterval(this.countDown);
         const audio = new Audio(
           'https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3'
@@ -37,15 +38,16 @@ export default class Countdown extends React.Component {
           mode: 'pause',
           time: undefined,
           rangeInputValue: undefined,
+          endPoint: undefined,
         });
         return;
       }
       this.setState(prevState => ({
-        time: prevState.time - 10,
+        time: prevState.endPoint - new Date().getTime(),
         timer: new Date(prevState.time),
         mode: 'play',
       }));
-    }, 10);
+    }, 1);
   };
 
   handleStart = () => {
@@ -67,32 +69,44 @@ export default class Countdown extends React.Component {
       return;
     }
     if (inputSec === undefined && inputMin !== undefined) {
+      const userTimeMs = inputMin * 60000;
+      const endPointAsDate = new Date();
+      const endPointAsMs = endPointAsDate.setMilliseconds(userTimeMs);
       this.setState(
         {
           time: inputMin * 60000,
           percent: inputMin * 60000,
           error: false,
           mode: 'play',
+          endPoint: endPointAsMs,
         },
         this.startTimer
       );
     } else if (inputSec !== undefined && inputMin === undefined) {
+      const userTimeMs = inputSec * 1000;
+      const endPointAsDate = new Date();
+      const endPointAsMs = endPointAsDate.setMilliseconds(userTimeMs);
       this.setState(
         {
           time: inputSec * 1000,
           percent: inputSec * 1000,
           error: false,
           mode: 'play',
+          endPoint: endPointAsMs,
         },
         this.startTimer
       );
     } else {
+      const userTimeMs = inputMin * 60000 + inputSec * 1000;
+      const endPointAsDate = new Date();
+      const endPointAsMs = endPointAsDate.setMilliseconds(userTimeMs);
       this.setState(
         {
           time: inputMin * 60000 + inputSec * 1000,
           percent: inputMin * 60000 + inputSec * 1000,
           error: false,
           mode: 'play',
+          endPoint: endPointAsMs,
         },
         this.startTimer
       );
@@ -118,12 +132,6 @@ export default class Countdown extends React.Component {
     });
   };
 
-  handleInputChange = ({ target }) => {
-    this.setState({
-      [target.dataset.time]: target.value,
-    });
-  };
-
   handleMinInputChange = ({ target }) => {
     const { inputSec } = this.state;
     this.setState({
@@ -140,7 +148,7 @@ export default class Countdown extends React.Component {
     });
   };
 
-  RangehandleChange = ({ target }) => {
+  handleRangeInputChange = ({ target }) => {
     const milisecs = target.value * 6000;
     const secsToMsecs = (milisecs % 6000) / 100;
     this.setState({
@@ -156,7 +164,7 @@ export default class Countdown extends React.Component {
   };
 
   render() {
-    const { timer, inputMin, inputSec, rangeInputValue, error, time } = this.state;
+    const { timer, inputMin, inputSec, rangeInputValue, error, time, mode } = this.state;
     const inputError = error ? 'error' : 'ok';
     return (
       <div className="countDown">
@@ -168,7 +176,7 @@ export default class Countdown extends React.Component {
           inputMin={inputMin}
           inputSec={inputSec}
           time={time}
-          RangehandleChange={this.RangehandleChange}
+          handleRangeInputChange={this.handleRangeInputChange}
           rangeInputValue={rangeInputValue}
         />
         <div className="countDownOutPut">
@@ -180,8 +188,8 @@ export default class Countdown extends React.Component {
             : parseInt(timer.getMilliseconds() / 10, 10)}
           мс
         </div>
-        {/* eslint-disable-next-line react/destructuring-assignment */}
-        {this.state.mode === 'pause' ? (
+
+        {mode === 'pause' ? (
           <Button type="primary" onClick={this.handleStart} className="playPause">
             Start
           </Button>
